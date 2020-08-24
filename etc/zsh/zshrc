@@ -1,0 +1,132 @@
+source /etc/zsh/antigen.zsh
+
+# Load the oh-my-zsh's library.
+antigen use oh-my-zsh
+
+# Bundles from the default repo (robbyrussell's oh-my-zsh).
+antigen bundle git
+antigen bundle pip
+antigen bundle command-not-found
+antigen bundle shrink-path
+
+# Syntax highlighting bundle.
+antigen bundle zsh-users/zsh-syntax-highlighting
+
+# "..." alias for "../.." etc.
+antigen bundle knu/zsh-manydots-magic
+
+antigen bundle supercrabtree/k
+
+# 256 color zsh
+#antigen bundle chrissicool/zsh-256color
+
+antigen bundle zsh-users/zsh-autosuggestions
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=239"
+
+# Load the theme.
+#antigen theme candy
+
+# Tell antigen that you're done.
+antigen apply
+
+cdUndoKey() {
+  popd
+  zle       reset-prompt
+}
+
+cdParentKey() {
+  pushd ..
+  zle      reset-prompt
+}
+
+zle -N                 cdParentKey
+zle -N                 cdUndoKey
+bindkey '^[[1;3A'      cdParentKey
+bindkey '^[[1;3D'      cdUndoKey
+
+# colored man pages
+man() {
+	LESS_TERMCAP_mb=$'\e[01;31m' \
+	LESS_TERMCAP_md=$'\e[32m'\
+	LESS_TERMCAP_me=$'\e[0m'\
+	LESS_TERMCAP_se=$'\e[0m'\
+	LESS_TERMCAP_so=$'\e[01;8;37m'\
+	LESS_TERMCAP_ue=$'\e[0m'\
+	LESS_TERMCAP_us=$'\e[04;36m'\
+	command man "$@"
+}
+
+p() {
+	bb-wrapper --aur --build-dir /var/cache/bauerbill "$@" \
+	&& sudo pacdiff
+}
+
+
+alias pping='prettyping --nolegend'
+alias ccat='pygmentize -g'
+
+alias diff='diff --color=auto'
+
+# grc colorizing
+alias lsblk='grc --colour=auto lsblk'
+alias du='grc --colour=auto du'
+alias df='grc --colour=auto df'
+alias mount='grc --colour=auto mount'
+alias lsmod='grc --colour=auto lsmod'
+alias uptime='grc --colour=auto uptime'
+alias ping='grc --colour=auto ping'
+alias last='grc --colour=auto last'
+alias free='grc --colour=auto free -h'
+alias ip='grc --colour=auto ip'
+alias env='grc --colour=auto env'
+
+
+alias cal='cal -m'
+alias dd='dd status=progress'
+alias watch='watch -c'
+alias less='less -R'
+alias tmux='tmux -2'
+
+__ls() {
+	grc ls -vFhC --group-directories-first --color=always \
+	--dereference-command-line-symlink-to-dir "$@"
+}
+
+alias l='__ls -la'
+alias ll='__ls -l'
+alias la='__ls -la'
+
+# zsh tab completion same colors as LS_COLORS
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
+# automatic rehash of completion database
+zstyle ':completion:*' rehash true
+
+source /etc/zsh/undistract-me.zsh
+source /etc/zsh/dirstack.zsh
+source /etc/zsh/myprompt.zsh
+
+# command-not-found depends on pkgfile
+source /etc/zsh/command-not-found.zsh
+
+export PATH=$HOME/bin:$PATH
+
+_trap_exit() { tmux kill-session -t $$; }
+trap _trap_exit EXIT
+
+if [[ -v TMUX ]]; then
+	# update window title
+	__preexec-title() {
+	    print -Pn "\e]0;$1\a"} #sets title for running command
+	__precmd-title() {
+	    print -Pn "\e]0;$PWD\a"} #sets title to PWD otherwise
+	preexec_functions+=( __preexec-title )
+	precmd_functions+=( __precmd-title )
+elif [[ -o login ]]; then
+	echo "This is a login shell, so not starting tmux"
+else
+	tmux -2 new-session -s $$
+	#exit
+fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

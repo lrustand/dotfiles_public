@@ -1,0 +1,7 @@
+#!/usr/bin/bash
+running="$(uname -r | sed -e 's/-ARCH//' -)"
+installed="$(pacman -Q linux | sed -e 's/linux //' -)"
+if [[ "$running" != "$installed" ]]; then
+	echo "Reboot needed!"
+	exit 1
+fi

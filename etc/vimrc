@@ -1,0 +1,247 @@
+
+version 6.0
+
+"enable mouse support
+set mouse=a
+
+set runtimepath+=/etc/vim,~/.vim,/var/lib/vim/addons,/usr/share/vim/vimfiles,/usr/share/vim/vim74,/usr/share/vim/vimfiles/after,/var/lib/vim/addons/after,~/.vim/after
+set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
+
+" Plugins
+call plug#begin('~/.vim/plugged')
+    Plug 'vim-airline/vim-airline-themes'
+    Plug 'vim-airline/vim-airline'
+    Plug 'brettanomyces/nvim-terminus'
+    Plug 'neovim/python-client'
+	Plug 'simnalamburt/vim-mundo'
+
+	Plug 'roxma/vim-tmux-clipboard'
+
+	Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+
+    "Plug 'Shougo/deoplete.nvim'
+    "Plug 'zchee/deoplete-clang'
+    "Plug 'zchee/deoplete-jedi'
+
+	" A Vim Plugin for Lively Previewing LaTeX PDF Output
+	Plug 'xuhdev/vim-latex-live-preview'
+	"Plug 'Valloric/YouCompleteMe'
+
+	Plug 'SirVer/ultisnips'
+	Plug 'honza/vim-snippets'
+
+	Plug 'sirtaj/vim-openscad'
+
+	Plug 'kshenoy/vim-signature'
+
+    "Plug 'benekastah/neomake'
+    Plug 'scrooloose/nerdtree'
+    "Plug 'jistr/vim-nerdtree-tabs'
+    Plug 'tpope/vim-fugitive'
+    Plug 'scrooloose/nerdcommenter'
+    "Plug 'ctrlpvim/ctrlp.vim'
+    "Plug 'msanders/snipmate.vim'
+    Plug 'airblade/vim-gitgutter'
+    Plug 'terryma/vim-multiple-cursors'
+    "Plug 'bronson/vim-trailing-whitespace'
+	Plug 'ntpeters/vim-better-whitespace'
+    Plug 'rking/ag.vim'
+    Plug 'sheerun/vim-polyglot'
+    "Plug 'ervandew/supertab'
+    Plug 'PotatoesMaster/i3-vim-syntax'
+    Plug 'majutsushi/tagbar'
+    Plug 'xolox/vim-misc'
+    "Plug 'xolox/vim-easytags'
+    Plug 'etdev/vim-hexcolor'
+    Plug 'christoomey/vim-tmux-navigator'
+    "Plug 'bfredl/nvim-ipy'
+    "Plug 'davidhalter/jedi-vim'
+    Plug 'altercation/vim-colors-solarized'
+
+    "nyaovim plugins:
+    Plug 'rhysd/nyaovim-markdown-preview'
+call plug#end()
+
+nnoremap <F5> :MundoToggle<CR>:call s:MundoPython('MundoRenderGraph()')<CR>
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+let g:ycm_server_python_interpreter = '/usr/bin/python2'
+
+" LaTeX live preview
+let g:livepreview_previewer = 'okular'
+"let g:livepreview_engine = 'pdflatex -shell-escape'
+
+" python paths
+let g:python_host_prog = '/usr/bin/python'
+let g:python3_host_prog = '/usr/bin/python3'
+
+" command prompt
+let g:editcommand_prompt = ':'
+
+" tmux focus integration
+"let g:tmux_navigator_no_mappings = 1
+"nnoremap <silent> <C-w>h :TmuxNavigateLeft<cr>
+"nnoremap <silent> <C-w>j :TmuxNavigateDown<cr>
+"nnoremap <silent> <C-w>k :TmuxNavigateUp<cr>
+"nnoremap <silent> <C-w>l :TmuxNavigateRight<cr>
+"nnoremap <silent> <C-M-\> :TmuxNavigatePrevious<cr>
+
+" tell it to use an undo file
+set undofile
+" set a directory to store the undo history
+set undodir=~/.vimundo/
+
+set tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
+
+" Ctrl-s
+nmap <C-s> :up<CR>
+vmap <C-s> <ESC>:up<CR>gv
+imap <C-s> <C-o>:up<CR>
+
+" Ctrl-k Ctrl-u
+inoremap <C-k> <C-o>dg_
+inoremap <C-u> <C-o>d^
+
+" Ctrl-Up Ctrl-Down move paragraph
+inoremap <C-Up> <C-o>{
+nnoremap <C-Up> {
+vnoremap <C-Up> {
+inoremap <C-Down> <C-o>}
+nnoremap <C-Down> }
+vnoremap <C-Down> }
+
+
+" delete words in insert mode
+inoremap <C-BS> <C-W>
+inoremap <C-h> <C-W>
+inoremap <C-Del> <C-o>dw
+
+
+" terminal mappings
+tnoremap <C-g> <C-\><C-n>
+tnoremap <ESC>: <C-\><C-n>:
+
+
+
+
+" indentation in Visual mode
+vnoremap <S-Tab> <gv
+vnoremap <Tab> >gv
+
+" backspace delete in visual mode
+vnoremap <BS> <Del>
+
+
+" Use deoplete.
+let g:deoplete#enable_at_startup = 1
+
+
+
+" Line highlighting
+set cpoptions+=$
+set ruler
+set cursorline
+
+
+
+" powerline fonts
+let g:airline_powerline_fonts = 1
+
+" colorscheme and airline theme
+set background=dark
+let g:solarized_termtrans = 1 " use terminals own background
+colorscheme solarized "elflord
+"let g:airline_theme = 'badwolf' "'murmur'  'badwolf'
+let g:airline_theme = 'base16'
+
+
+
+" folding settings
+set foldmethod=indent   "fold based on indentation
+set foldnestmax=10      "deepest fold is 10 levels
+set nofoldenable        "dont fold by default
+
+
+syntax on
+filetype plugin indent on
+set modeline
+
+
+" X11 clipboard
+set clipboard=unnamedplus
+
+" Turn on line numbering
+set relativenumber
+set number
+highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=00ff00 gui=NONE guifg=DarkGrey guibg=NONE
+
+" Relative and absolute numbering autotoggle
+autocmd FocusLost * :set norelativenumber
+autocmd FocusGained * :set relativenumber
+autocmd InsertEnter * :set norelativenumber
+autocmd InsertLeave * :set relativenumber
+highlight CursorLineNR cterm=bold ctermfg=DarkYellow
+
+" set window title
+autocmd BufEnter * let &titlestring = "vim " . expand("%:t")
+"if exists('$TMUX')
+"	autocmd FocusGained,BufReadPost,FileReadPost,BufNewFile * call system("printf '\033]2;%s\033\\' 'vim " . expand("%:t") . "'")
+    "autocmd FocusLost,VimLeave * call system("tmux setw automatic-rename")
+"endif
+"let &titlestring = "[vim " . expand("%:t") . ")]"
+if &term == "screen"
+  set t_ts=k
+  set t_fs=\
+endif
+if &term == "screen" || &term == "xterm"
+  set title
+endif
+set title
+
+
+if has('gui_running')
+    colorscheme codeschool
+else
+    set ttimeoutlen=10
+    augroup FastEscape
+        autocmd!
+        autocmd InsertEnter * set timeoutlen=0
+        autocmd InsertLeave * set timeoutlen=1000
+    augroup END
+endif
+
+
+
+
+set autoread
+set updatetime=1000
+autocmd CursorHold * call Timer()
+function! Timer()
+  call feedkeys("f\e")
+  " K_IGNORE keycode does not work after version 7.2.025)
+  " there are numerous other keysequences that you can use
+  checktime
+endfunction
+
+" vim: set ft=vim :

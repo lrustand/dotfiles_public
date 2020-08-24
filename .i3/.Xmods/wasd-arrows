@@ -1,0 +1,4 @@
+keycode 38 = Left A a A Left
+keycode 40 = Right D d D Right
+keycode 39 = Down KP_Next s S Down
+keycode 25 = Up KP_Prior s S Up

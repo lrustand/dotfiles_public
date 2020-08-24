@@ -1,0 +1,45 @@
+#! /bin/sh
+
+width=260
+height=200
+datefmt="+%a %d %b %H:%M"
+
+OPTIND=1
+while getopts ":f:W:H:" opt; do
+    case $opt in
+        f) datefmt="$OPTARG" ;;
+        W) width="$OPTARG" ;;
+        H) height="$OPTARG" ;;
+        \?)
+            echo "Invalid option: -$OPTARG" >&2
+            exit 1
+            ;;
+        :)
+            echo "Option -$OPTARG requires an argument." >&2
+            exit 1
+            ;;
+    esac
+done
+
+case "$BLOCK_BUTTON" in
+  1|2|3) 
+
+	# the position of the upper left corner of the popup
+	posX=$(($(xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/' | cut -dx -f1)-$width))
+	posY=$((24))
+
+	i3-msg -q "exec yad --calendar \
+        --width=$width --height=$height \
+	    --undecorated --fixed \
+	    --close-on-unfocus --no-buttons \
+	    --posx=$posX --posy=$posY \
+		--show-weeks \
+	    > /dev/null"
+esac
+date "$datefmt"
+date "+%H:%M"
+if [ $(date +%H) -lt 07 ]; then
+    exit 33
+elif [ $(date +%H) -gt 21 ]; then
+    echo "#fffc00"
+fi
