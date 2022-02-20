@@ -49,14 +49,24 @@ bindsym $super+Down  focus down
 bindsym $super+Up    focus up
 bindsym $super+Right focus right
 
+bindsym $super+h     focus left
+bindsym $super+j     focus down
+bindsym $super+k     focus up
+bindsym $super+l     focus right
+
 # move windows
-bindsym $super+Shift+Left move left
-bindsym $super+Shift+Down move down
-bindsym $super+Shift+Up move up
+bindsym $super+Shift+Left  move left
+bindsym $super+Shift+Down  move down
+bindsym $super+Shift+Up    move up
 bindsym $super+Shift+Right move right
 
+bindsym $super+Shift+h     move left
+bindsym $super+Shift+j     move down
+bindsym $super+Shift+k     move up
+bindsym $super+Shift+l     move right
+
 # split in horizontal orientation
-bindsym $super+h split h
+bindsym $super+Shift+v split h
 
 # split in vertical orientation
 bindsym $super+v split v
@@ -113,10 +123,15 @@ bindsym $super+Shift+r restart
 bindsym $super+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # Resize
-bindsym $super+Mod1+Left resize shrink width 1 px or 1 ppt
-bindsym $super+Mod1+Right resize grow width 1 px or 1 ppt
-bindsym $super+Mod1+Down resize shrink height 1 px or 1 ppt
-bindsym $super+Mod1+Up resize grow height 1 px or 1 ppt
+bindsym $super+Mod1+Left  resize shrink width  1 px or 1 ppt
+bindsym $super+Mod1+Down  resize shrink height 1 px or 1 ppt
+bindsym $super+Mod1+Up    resize grow   height 1 px or 1 ppt
+bindsym $super+Mod1+Right resize grow   width  1 px or 1 ppt
+
+bindsym $super+Mod1+h     resize shrink width  1 px or 1 ppt
+bindsym $super+Mod1+j     resize shrink height 1 px or 1 ppt
+bindsym $super+Mod1+k     resize grow   height 1 px or 1 ppt
+bindsym $super+Mod1+l     resize grow   width  1 px or 1 ppt
 
 
 bindsym $super+u border none
@@ -127,17 +142,29 @@ bindsym $super+Shift+u border pixel 7
 #bindsym $hyper+v exec clipmenu -fn Terminus:size=12
 #bindsym $hyper+w exec i3-winmenu
 #bindsym $hyper+s exec hypersel
-bindsym $hyper+Left focus output left
+bindsym $hyper+Shift+h     exec i3-msg "move container to output    prev" && i3-msg "focus output prev"
+bindsym $hyper+Shift+j     exec i3-msg "move container to workspace next" && i3-msg "workspace next"
+bindsym $hyper+Shift+k     exec i3-msg "move container to workspace prev" && i3-msg "workspace prev"
+bindsym $hyper+Shift+l     exec i3-msg "move container to output    next" && i3-msg "focus output next"
+
+bindsym $hyper+Shift+Left  exec i3-msg "move container to output    prev" && i3-msg "focus output prev"
+bindsym $hyper+Shift+Down  exec i3-msg "move container to workspace next" && i3-msg "workspace next"
+bindsym $hyper+Shift+Up    exec i3-msg "move container to workspace prev" && i3-msg "workspace prev"
+bindsym $hyper+Shift+Right exec i3-msg "move container to output    next" && i3-msg "focus output next"
+
+bindsym $hyper+h     focus output left
+bindsym $hyper+j     workspace next
+bindsym $hyper+k     workspace prev
+bindsym $hyper+l     focus output right
+
+bindsym $hyper+Left  focus output left
+bindsym $hyper+Down  workspace next
+bindsym $hyper+Up    workspace prev
 bindsym $hyper+Right focus output right
-bindsym $hyper+Shift+Left exec i3-msg "move container to output prev" && i3-msg "focus output prev"
-bindsym $hyper+Shift+Right exec i3-msg "move container to output next" && i3-msg "focus output next"
-bindsym $hyper+Up workspace prev
-bindsym $hyper+Down workspace next
-bindsym $hyper+Shift+Up exec i3-msg "move container to workspace prev" && i3-msg "workspace prev"
-bindsym $hyper+Shift+Down exec i3-msg "move container to workspace next" && i3-msg "workspace next"
+
 bindsym $hyper+Return exec i3-new-workspace
 
-bindsym $hyper+l exec i3lock -c 000000
+#bindsym $hyper+l exec i3lock -c 000000
 bindsym $hyper+a exec swapkeylayout
 
 
