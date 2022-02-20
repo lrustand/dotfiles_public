@@ -1,6 +1,8 @@
 
 version 6.0
 
+set nofixendofline
+
 "enable mouse support
 set mouse=a
 
@@ -243,5 +245,12 @@ function! Timer()
   " there are numerous other keysequences that you can use
   checktime
 endfunction
+
+" show existing tab with 4 spaces width
+set tabstop=4
+" when indenting with '>', use 4 spaces width
+set shiftwidth=4
+" On pressing tab, insert 4 spaces
+set expandtab
 
 " vim: set ft=vim :
