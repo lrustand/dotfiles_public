@@ -183,7 +183,7 @@ new_window pixel 7
 #smart_gaps on
 
 
-
+for_window [class="^.*"] border pixel 7
 for_window [class="Steam"] border pixel 7
 for_window [class="Eog"] border pixel 7
 for_window [class="Tint2"] floating toggle
