@@ -17,9 +17,12 @@ call plug#begin('~/.vim/plugged')
     Plug 'neovim/python-client'
 	Plug 'simnalamburt/vim-mundo'
 
+	Plug 'xavierd/clang_complete'
+
 	Plug 'roxma/vim-tmux-clipboard'
 
 	Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+	Plug 'junegunn/fzf.vim'
 
     "Plug 'Shougo/deoplete.nvim'
     "Plug 'zchee/deoplete-clang'
@@ -29,8 +32,8 @@ call plug#begin('~/.vim/plugged')
 	Plug 'xuhdev/vim-latex-live-preview'
 	"Plug 'Valloric/YouCompleteMe'
 
-	Plug 'SirVer/ultisnips'
-	Plug 'honza/vim-snippets'
+	"Plug 'SirVer/ultisnips'
+	"Plug 'honza/vim-snippets'
 
 	Plug 'sirtaj/vim-openscad'
 
@@ -49,7 +52,7 @@ call plug#begin('~/.vim/plugged')
 	Plug 'ntpeters/vim-better-whitespace'
     Plug 'rking/ag.vim'
     Plug 'sheerun/vim-polyglot'
-    "Plug 'ervandew/supertab'
+    Plug 'ervandew/supertab'
     Plug 'PotatoesMaster/i3-vim-syntax'
     Plug 'majutsushi/tagbar'
     Plug 'xolox/vim-misc'
@@ -72,7 +75,12 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
-
+let g:clang_library_path='/usr/lib/libclang.so'
+let g:clang_use_library=1
+let g:clang_complete_auto=0
+let g:SuperTabDefaultCompletionType = 'context'
+set completeopt=menu,menuone,longest
+set pumheight=15
 
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
