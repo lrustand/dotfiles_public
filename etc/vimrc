@@ -35,6 +35,7 @@ call plug#begin('~/.vim/plugged')
 	"Plug 'SirVer/ultisnips'
 	"Plug 'honza/vim-snippets'
     Plug 'folke/which-key.nvim', { 'branch': 'main' }
+    Plug 'chriskempson/base16-vim'
 	Plug 'sirtaj/vim-openscad'
 
 	Plug 'kshenoy/vim-signature'
@@ -190,7 +191,7 @@ let g:airline_powerline_fonts = 1
 " colorscheme and airline theme
 set background=dark
 let g:solarized_termtrans = 1 " use terminals own background
-colorscheme solarized "elflord
+colorscheme base16-solarized-dark
 "let g:airline_theme = 'badwolf' "'murmur'  'badwolf'
 let g:airline_theme = 'base16'
 
@@ -213,14 +214,12 @@ set clipboard=unnamedplus
 " Turn on line numbering
 set relativenumber
 set number
-highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=00ff00 gui=NONE guifg=DarkGrey guibg=NONE
 
 " Relative and absolute numbering autotoggle
 autocmd FocusLost * :set norelativenumber
 autocmd FocusGained * :set relativenumber
 autocmd InsertEnter * :set norelativenumber
 autocmd InsertLeave * :set relativenumber
-highlight CursorLineNR cterm=bold ctermfg=DarkYellow
 
 " set window title
 autocmd BufEnter * let &titlestring = "vim " . expand("%:t")
