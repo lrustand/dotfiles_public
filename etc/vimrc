@@ -34,7 +34,7 @@ call plug#begin('~/.vim/plugged')
 
 	"Plug 'SirVer/ultisnips'
 	"Plug 'honza/vim-snippets'
-
+    Plug 'folke/which-key.nvim', { 'branch': 'main' }
 	Plug 'sirtaj/vim-openscad'
 
 	Plug 'kshenoy/vim-signature'
@@ -108,6 +108,15 @@ let g:python3_host_prog = '/usr/bin/python3'
 
 " command prompt
 let g:editcommand_prompt = ':'
+
+
+lua << EOF
+  require("which-key").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  }
+EOF
 
 " tmux focus integration
 "let g:tmux_navigator_no_mappings = 1
