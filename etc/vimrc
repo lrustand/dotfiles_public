@@ -242,7 +242,11 @@ else
 endif
 
 
-
+hi ActiveWindow ctermbg=8
+hi InactiveWindow ctermbg=NONE
+set winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
+autocmd FocusGained * hi ActiveWindow ctermbg=8
+autocmd FocusLost * hi ActiveWindow ctermbg=NONE
 
 set autoread
 set updatetime=1000
