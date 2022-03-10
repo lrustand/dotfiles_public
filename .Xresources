@@ -1,5 +1,6 @@
-! urxvt
+Xft.dpi: 96
 
+! urxvt
 !icon
 URxvt.iconFile:  /usr/share/icons/gnome/scalable/apps/utilities-terminal-symbolic.svg
 
