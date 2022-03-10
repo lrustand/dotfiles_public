@@ -11,61 +11,56 @@ set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.i
 
 " Plugins
 call plug#begin('~/.vim/plugged')
+    " Theme stuff
     Plug 'vim-airline/vim-airline-themes'
     Plug 'vim-airline/vim-airline'
-    Plug 'brettanomyces/nvim-terminus'
-    Plug 'neovim/python-client'
-	Plug 'simnalamburt/vim-mundo'
+    Plug 'altercation/vim-colors-solarized'
+    Plug 'lrustand/base16-vim'
 
-	Plug 'xavierd/clang_complete'
+    " Tmux stuff
+    Plug 'roxma/vim-tmux-clipboard'
+    Plug 'lrustand/vim-tmux-navigator'
 
-	Plug 'roxma/vim-tmux-clipboard'
-
-	Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-	Plug 'junegunn/fzf.vim'
-
-    "Plug 'Shougo/deoplete.nvim'
-    "Plug 'zchee/deoplete-clang'
-    "Plug 'zchee/deoplete-jedi'
-
-	" A Vim Plugin for Lively Previewing LaTeX PDF Output
-	Plug 'xuhdev/vim-latex-live-preview'
-	"Plug 'Valloric/YouCompleteMe'
-
-	"Plug 'SirVer/ultisnips'
-	"Plug 'honza/vim-snippets'
+    " Completion stuff
+    Plug 'xavierd/clang_complete'
+    Plug 'ervandew/supertab'
     Plug 'folke/which-key.nvim', { 'branch': 'main' }
-    Plug 'chriskempson/base16-vim'
-	Plug 'sirtaj/vim-openscad'
 
-	Plug 'kshenoy/vim-signature'
+    " Undo tree
+    Plug 'simnalamburt/vim-mundo'
 
-    "Plug 'benekastah/neomake'
+    " Syntax
+    Plug 'sirtaj/vim-openscad'
+    Plug 'sheerun/vim-polyglot'
+    Plug 'PotatoesMaster/i3-vim-syntax'
+
+    " FZF
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+    Plug 'junegunn/fzf.vim'
+
+    " Ag
+    Plug 'rking/ag.vim'
+
+    " Latex
+    Plug 'xuhdev/vim-latex-live-preview'
+
+    " Git (TODO do we need both?)
+    Plug 'airblade/vim-gitgutter'
+    Plug 'tpope/vim-fugitive'
+
+    " Nerdtree
     Plug 'scrooloose/nerdtree'
     "Plug 'jistr/vim-nerdtree-tabs'
-    Plug 'tpope/vim-fugitive'
-    Plug 'scrooloose/nerdcommenter'
-    "Plug 'ctrlpvim/ctrlp.vim'
-    "Plug 'msanders/snipmate.vim'
-    Plug 'airblade/vim-gitgutter'
-    Plug 'terryma/vim-multiple-cursors'
-    "Plug 'bronson/vim-trailing-whitespace'
-	Plug 'ntpeters/vim-better-whitespace'
-    Plug 'rking/ag.vim'
-    Plug 'sheerun/vim-polyglot'
-    Plug 'ervandew/supertab'
-    Plug 'PotatoesMaster/i3-vim-syntax'
+
+    " Other, TODO needs sorting and cleaning
+    Plug 'neovim/python-client'
     Plug 'majutsushi/tagbar'
     Plug 'xolox/vim-misc'
-    "Plug 'xolox/vim-easytags'
+    Plug 'kshenoy/vim-signature'
     Plug 'etdev/vim-hexcolor'
-    Plug 'christoomey/vim-tmux-navigator'
-    "Plug 'bfredl/nvim-ipy'
-    "Plug 'davidhalter/jedi-vim'
-    Plug 'altercation/vim-colors-solarized'
-
-    "nyaovim plugins:
-    Plug 'rhysd/nyaovim-markdown-preview'
+    Plug 'scrooloose/nerdcommenter'
+    Plug 'terryma/vim-multiple-cursors'
+    Plug 'ntpeters/vim-better-whitespace'
 call plug#end()
 
 nnoremap <F5> :MundoToggle<CR>:call s:MundoPython('MundoRenderGraph()')<CR>
@@ -83,6 +78,7 @@ let g:SuperTabDefaultCompletionType = 'context'
 set completeopt=menu,menuone,longest
 set pumheight=15
 
+
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],
@@ -96,8 +92,6 @@ let g:fzf_colors =
   \ 'marker':  ['fg', 'Keyword'],
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
-
-let g:ycm_server_python_interpreter = '/usr/bin/python2'
 
 " LaTeX live preview
 let g:livepreview_previewer = 'okular'
@@ -119,20 +113,10 @@ lua << EOF
   }
 EOF
 
-" tmux focus integration
-"let g:tmux_navigator_no_mappings = 1
-"nnoremap <silent> <C-w>h :TmuxNavigateLeft<cr>
-"nnoremap <silent> <C-w>j :TmuxNavigateDown<cr>
-"nnoremap <silent> <C-w>k :TmuxNavigateUp<cr>
-"nnoremap <silent> <C-w>l :TmuxNavigateRight<cr>
-"nnoremap <silent> <C-M-\> :TmuxNavigatePrevious<cr>
-
 " tell it to use an undo file
 set undofile
 " set a directory to store the undo history
 set undodir=~/.vimundo/
-
-set tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
 
 " Ctrl-s
 nmap <C-s> :up<CR>
@@ -154,16 +138,28 @@ vnoremap <C-Down> }
 
 " delete words in insert mode
 inoremap <C-BS> <C-W>
-inoremap <C-h> <C-W>
 inoremap <C-Del> <C-o>dw
-
 
 " terminal mappings
 tnoremap <C-g> <C-\><C-n>
 tnoremap <ESC>: <C-\><C-n>:
 
+" Make click on terminal pane enter terminal mode
+if has('nvim')
+    augroup terminal_setup | au!
+        autocmd TermOpen * nnoremap <buffer><LeftRelease> <LeftRelease>i
+        " more stuff
+    augroup end
+endif
 
-
+" Automatically enter terminal mode when switching to a terminal pane
+autocmd BufEnter,BufWinEnter,WinEnter,FocusGained,TermOpen term://* startinsert
+"
+" Return to last edit position when opening files
+autocmd BufReadPost *
+     \ if line("'\"") > 0 && line("'\"") <= line("$") |
+     \   exe "normal! g`\"" |
+     \ endif
 
 " indentation in Visual mode
 vnoremap <S-Tab> <gv
@@ -172,29 +168,12 @@ vnoremap <Tab> >gv
 " backspace delete in visual mode
 vnoremap <BS> <Del>
 
-
-" Use deoplete.
-let g:deoplete#enable_at_startup = 1
-
-
-
-" Line highlighting
-set cpoptions+=$
-set ruler
-set cursorline
-
-
-
 " powerline fonts
 let g:airline_powerline_fonts = 1
 
-" colorscheme and airline theme
-set background=dark
-let g:solarized_termtrans = 1 " use terminals own background
+" Colorscheme
 colorscheme base16-solarized-dark
-"let g:airline_theme = 'badwolf' "'murmur'  'badwolf'
 let g:airline_theme = 'base16'
-
 
 
 " folding settings
@@ -202,60 +181,44 @@ set foldmethod=indent   "fold based on indentation
 set foldnestmax=10      "deepest fold is 10 levels
 set nofoldenable        "dont fold by default
 
-
-syntax on
-filetype plugin indent on
-set modeline
-
-
 " X11 clipboard
-set clipboard=unnamedplus
+if exists('$DISPLAY')
+    set clipboard=unnamedplus
+endif
+
+" Line highlighting
+set cpoptions+=$
+set ruler
+set cursorline
 
 " Turn on line numbering
 set relativenumber
 set number
 
 " Relative and absolute numbering autotoggle
-autocmd FocusLost * :set norelativenumber
-autocmd FocusGained * :set relativenumber
 autocmd InsertEnter * :set norelativenumber
 autocmd InsertLeave * :set relativenumber
 
-" set window title
-autocmd BufEnter * let &titlestring = "vim " . expand("%:t")
-"if exists('$TMUX')
-"	autocmd FocusGained,BufReadPost,FileReadPost,BufNewFile * call system("printf '\033]2;%s\033\\' 'vim " . expand("%:t") . "'")
-    "autocmd FocusLost,VimLeave * call system("tmux setw automatic-rename")
-"endif
-"let &titlestring = "[vim " . expand("%:t") . ")]"
-if &term == "screen"
-  set t_ts=k
-  set t_fs=\
-endif
-if &term == "screen" || &term == "xterm"
-  set title
-endif
-set title
+set ttimeoutlen=10
+augroup FastEscape
+    autocmd!
+    autocmd InsertEnter * set timeoutlen=0
+    autocmd InsertLeave * set timeoutlen=1000
+augroup END
 
-
-if has('gui_running')
-    colorscheme codeschool
-else
-    set ttimeoutlen=10
-    augroup FastEscape
-        autocmd!
-        autocmd InsertEnter * set timeoutlen=0
-        autocmd InsertLeave * set timeoutlen=1000
-    augroup END
-endif
-
-
+" Highlight active pane background
 hi ActiveWindow ctermbg=8
 hi InactiveWindow ctermbg=NONE
 set winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
 autocmd FocusGained * hi ActiveWindow ctermbg=8
 autocmd FocusLost * hi ActiveWindow ctermbg=NONE
 
+" Restore tmux background color on exit
+if exists('$TMUX')
+    autocmd VimLeave * !tmux set window-active-style fg=default,bg=colour8
+endif
+
+" Automatically re-read file every second
 set autoread
 set updatetime=1000
 autocmd CursorHold * call Timer()
@@ -266,6 +229,16 @@ function! Timer()
   checktime
 endfunction
 
+" Fix vim tmux navigator in nersdtree
+let g:NERDTreeMapJumpPrevSibling=""
+let g:NERDTreeMapJumpNextSibling=""
+
+" Syntax highlighting on
+syntax on
+filetype plugin indent on
+set modeline
+
+" TODO maybe change this to use some sort of ftplugin, maybe polyglot?
 " show existing tab with 4 spaces width
 set tabstop=4
 " when indenting with '>', use 4 spaces width
