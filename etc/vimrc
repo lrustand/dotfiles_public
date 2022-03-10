@@ -161,6 +161,9 @@ if has('nvim')
 
         " Automatically enter terminal mode when switching to a terminal pane
         autocmd BufEnter,BufWinEnter,WinEnter,FocusGained,TermOpen term://* startinsert
+
+        " Disable line numbers in terminal panes
+        autocmd TermOpen term://* setlocal nonumber norelativenumber
     augroup end
 endif
 
