@@ -29,6 +29,8 @@ call plug#begin('~/.vim/plugged')
     " Undo tree
     Plug 'simnalamburt/vim-mundo'
 
+    Plug 'lrustand/vim-maximizer'
+
     " Syntax
     Plug 'sirtaj/vim-openscad'
     Plug 'sheerun/vim-polyglot'
@@ -77,6 +79,14 @@ let g:clang_complete_auto=0
 let g:SuperTabDefaultCompletionType = 'context'
 set completeopt=menu,menuone,longest
 set pumheight=15
+
+
+" Maximize current pane with <C-w>
+let g:maximizer_set_default_mapping = 0
+nnoremap <silent><C-w>z :MaximizerToggle<CR>
+vnoremap <silent><C-w>z :MaximizerToggle<CR>gv
+inoremap <silent><C-w>z <C-o>:MaximizerToggle<CR>
+tnoremap <silent><C-w>z <Cmd>MaximizerToggle<CR>
 
 
 let g:fzf_colors =
