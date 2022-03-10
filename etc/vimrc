@@ -29,6 +29,7 @@ call plug#begin('~/.vim/plugged')
     " Undo tree
     Plug 'simnalamburt/vim-mundo'
 
+    " Split maximizer
     Plug 'lrustand/vim-maximizer'
 
     " Syntax
@@ -53,6 +54,9 @@ call plug#begin('~/.vim/plugged')
     " Nerdtree
     Plug 'scrooloose/nerdtree'
     "Plug 'jistr/vim-nerdtree-tabs'
+    Plug 'lrustand/nerdtree-visual-selection'
+    Plug 'Xuyuanp/nerdtree-git-plugin'
+    Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
     " Other, TODO needs sorting and cleaning
     Plug 'neovim/python-client'
@@ -63,6 +67,10 @@ call plug#begin('~/.vim/plugged')
     Plug 'scrooloose/nerdcommenter'
     Plug 'terryma/vim-multiple-cursors'
     Plug 'ntpeters/vim-better-whitespace'
+
+    " Dev icons, always load last
+    Plug 'ryanoasis/vim-devicons' " Requires NERD font: https://aur.archlinux.org/packages/nerd-fonts-dejavu-complete
+
 call plug#end()
 
 nnoremap <F5> :MundoToggle<CR>:call s:MundoPython('MundoRenderGraph()')<CR>
@@ -186,6 +194,19 @@ function! StartUp()
 endfunction
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * call StartUp()
+
+" Replace NERDTree folder arrows with folder open close symbols
+let g:DevIconsEnableFoldersOpenClose = 1
+let g:DevIconsDefaultFolderOpenSymbol='' " symbol for open folder (f07c)
+let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol='' " symbol for closed folder (f07b)
+let g:NERDTreeDirArrowExpandable = ""
+let g:NERDTreeDirArrowCollapsible = ""
+
+" Remove extra padding between git icons and file icons
+let g:WebDevIconsNerdTreeBeforeGlyphPadding = ''
+
+" Remove help string from top of NERDTree
+let NERDTreeMinimalUI=1
 
 " indentation in Visual mode
 vnoremap <S-Tab> <gv
