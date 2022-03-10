@@ -173,6 +173,20 @@ autocmd BufReadPost *
      \   exe "normal! g`\"" |
      \ endif
 
+" Start NERDTree if no file argument
+function! StartUp()
+    if !argc() && !exists("s:std_in")
+        NERDTree
+    end
+    if argc() && isdirectory(argv()[0]) && !exists("s:std_in")
+        ene
+        exe 'NERDTree' argv()[0]
+        cd `=argv()[0]`
+    end
+endfunction
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * call StartUp()
+
 " indentation in Visual mode
 vnoremap <S-Tab> <gv
 vnoremap <Tab> >gv
