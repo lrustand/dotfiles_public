@@ -154,17 +154,16 @@ inoremap <C-Del> <C-o>dw
 tnoremap <C-g> <C-\><C-n>
 tnoremap <ESC>: <C-\><C-n>:
 
-" Make click on terminal pane enter terminal mode
 if has('nvim')
     augroup terminal_setup | au!
+        " Make click on terminal pane enter terminal mode
         autocmd TermOpen * nnoremap <buffer><LeftRelease> <LeftRelease>i
-        " more stuff
+
+        " Automatically enter terminal mode when switching to a terminal pane
+        autocmd BufEnter,BufWinEnter,WinEnter,FocusGained,TermOpen term://* startinsert
     augroup end
 endif
 
-" Automatically enter terminal mode when switching to a terminal pane
-autocmd BufEnter,BufWinEnter,WinEnter,FocusGained,TermOpen term://* startinsert
-"
 " Return to last edit position when opening files
 autocmd BufReadPost *
      \ if line("'\"") > 0 && line("'\"") <= line("$") |
